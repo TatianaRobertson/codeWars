@@ -4,9 +4,11 @@ public class BoogleBoard {
 
 	public static void main(String[] args) {
 		BoogleBoard boggleBoard = new BoogleBoard();
-		String booggleArr[][] = { { "D", "R", "F" }, 
-				                  { "C", "E", "G" } };
-		String word = "EGF";
+		String booggleArr[][] = { {"I","L","A","W"},
+				                  {"B","N","G","E"},
+				                  {"I","U","A","O"},
+				                  {"A","S","R","L"} };
+		String word = "EGT";
 
 		System.out.println("Start");
 		System.out.println("end:" + checkBoogleBoard(booggleArr, word));
@@ -26,10 +28,12 @@ public class BoogleBoard {
 				for (int y = 0; y < booggleArr[x].length; y++) {
 					if (booggleArr[x][y].equals(Character.toString(letter))) {
 						System.out.println("got Letter:" + letter + " w=" + letterIndex);
-						letterFound = true;
+				//		letterFound = true;
 						booggleArr[x][y] = "~";
-						if (letterIndex + 1 < wordArr.length) // not the last digit of the word
+						if (letterIndex + 1 < wordArr.length) {// not the last digit of the word
 							letterFound = checkNeighbours(x, y, booggleArr, wordArr, letterIndex+1 );
+							break;    //remove the break if more than one start is possible
+						}
 					}
 				}
 
@@ -59,7 +63,7 @@ public class BoogleBoard {
 			if (letterIndex + 1 < wordArr.length) // not the last digit of the word
 			  checkNeighbours(x + 1, y, booggleArr,wordArr, letterIndex+1);
 			else
-				return false;
+				return neighbourFound;
 		}
 		
 		if(x > 0) System.out.println("Checking neighbour 2: "+ booggleArr[x-1][y]);
@@ -70,7 +74,7 @@ public class BoogleBoard {
 			if (letterIndex + 1 < wordArr.length) // not the last digit of the word
 			  checkNeighbours(x - 1, y, booggleArr,wordArr, letterIndex+1);
 			else 
-				return false;
+				return neighbourFound;
 		}
 		
 		if(y + 1 < booggleArr[x].length) System.out.println("Checking neighbour 3: "+ booggleArr[x][y + 1]);
@@ -81,7 +85,7 @@ public class BoogleBoard {
 			if (letterIndex + 1 < wordArr.length) // not the last digit of the word
 			  checkNeighbours(x, y + 1, booggleArr,wordArr, letterIndex+1);
 			else
-				return false;
+				return neighbourFound;
 		}
 		
 		if(y > 0 )	System.out.println("Checking neighbour 4: "+ booggleArr[x][y - 1]);
@@ -92,7 +96,7 @@ public class BoogleBoard {
 			if (letterIndex + 1 < wordArr.length) // not the last digit of the word
 			  checkNeighbours(x,y - 1, booggleArr,wordArr, letterIndex+1);
 			else
-				return false;					
+				return neighbourFound;					
 		}
 
 		return neighbourFound;
